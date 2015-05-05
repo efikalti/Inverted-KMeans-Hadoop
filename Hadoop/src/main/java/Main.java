@@ -62,11 +62,6 @@ public class Main {
 
                 //Execute InvertedIndex 
                 int code = InvertedIndex.waitForCompletion(true) ? 0 : 1;
-
-                if (code == 0) //InvertedIndex completed successfully
-                {
-                    
-                }
             }
             
 	}
