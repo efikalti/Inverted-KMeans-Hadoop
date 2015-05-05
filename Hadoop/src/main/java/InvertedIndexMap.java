@@ -23,7 +23,7 @@ public class InvertedIndexMap extends
         //Get from configuration the path to the stopwords file and create a StopWords object for filtering
         Configuration conf = context.getConfiguration();
         Path[] filename = DistributedCache.getLocalCacheFiles(conf);
-        StopWords stopwords = new StopWords("stopwords.txt");
+        StopWords stopwords = new StopWords(filename[0].toString());
         
         //get filename of the current input and add it to Text variable id
         FileSplit fileSplit = (FileSplit)context.getInputSplit();

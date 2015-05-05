@@ -12,12 +12,15 @@ public class InvertedIndexReduce extends
     @Override
     public void reduce(Text text, Iterable<Text> values, Context context) throws IOException, InterruptedException
     {
-        String output = "[";
+        String output = "[ ";
         for (Text filename : values)
         {
-            output = output + ", " + filename.toString();
+            if (!output.contains(filename.toString()))
+            {
+                output = output + filename.toString() + ", ";
+            }
         }
-        output = output + "]";
+        output = output + " ]";
         context.write(text, new Text(output)); 
     }
 }

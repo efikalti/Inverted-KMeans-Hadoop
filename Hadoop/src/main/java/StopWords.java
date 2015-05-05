@@ -56,10 +56,11 @@ public class StopWords {
      */
     public boolean contains(String word)
     {
-        if(this.stopwords.contains(word))
-        {
-            return true;
-        }
-        return false;
+        return this.stopwords.contains(word);
+    }
+    
+    public ArrayList<String> getStopWords()
+    {
+        return this.stopwords;
     }
 }

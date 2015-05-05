@@ -13,6 +13,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 /**
  *
@@ -50,7 +51,7 @@ public class Main {
                 InvertedIndex.setReducerClass(InvertedIndexReduce.class);
                 // Define the data type of keys and values
                 InvertedIndex.setMapOutputKeyClass(Text.class); //key from map
-                InvertedIndex.setMapOutputValueClass(IntWritable.class);//value from map
+                InvertedIndex.setMapOutputValueClass(Text.class);//value from map
                 InvertedIndex.setOutputKeyClass(Text.class);    //key from reduce
                 InvertedIndex.setOutputValueClass(Text.class); //value from reduce
                 // Set input path 
@@ -58,7 +59,7 @@ public class Main {
                 InvertedIndex.setInputFormatClass(TextInputFormat.class);
                 // Set output path
                 FileOutputFormat.setOutputPath(InvertedIndex, output);
-                InvertedIndex.setOutputFormatClass(SequenceFileOutputFormat.class);
+                InvertedIndex.setOutputFormatClass(TextOutputFormat.class);
 
                 //Execute InvertedIndex 
                 int code = InvertedIndex.waitForCompletion(true) ? 0 : 1;
