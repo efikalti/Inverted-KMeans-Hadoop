@@ -30,8 +30,11 @@ public class InvertedIndexMap extends
         String fileId = fileSplit.getPath().getName();
         id = new Text(fileId);
         
-        //split the input file into words,remove punctuation and separate each word
-        String[] words = value.toString().replaceAll("[^a-zA-Z ]", " ").toLowerCase().split(" ");
+        //remove xml tags
+        String new_value = value.toString().replaceAll("<.*?>", "");
+                
+        //split the line into words,remove punctuation and separate each word
+        String[] words = new_value.replaceAll("[^a-zA-Z ]", " ").toLowerCase().split(" ");
         
         //check each word if it is a stopword and emit to reducer those who are not
         for (String str : words) { //filter each word
