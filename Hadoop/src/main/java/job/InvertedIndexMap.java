@@ -22,6 +22,7 @@ public class InvertedIndexMap extends
      @Override
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
         
+        
         //Get from configuration the path to the stopwords file and create a StopWords object for filtering
         Configuration conf = context.getConfiguration();
         Path[] filename = DistributedCache.getLocalCacheFiles(conf);
@@ -40,7 +41,7 @@ public class InvertedIndexMap extends
         
         //check each word if it is a stopword and emit to reducer those who are not
         for (String str : words) { //filter each word
-            if(!stopwords.contains(str))
+            if(!stopwords.contains(str) && str.length()>0)
             {//str is not a stopword 
                 final_word = new Text(str);
                 //emit the word and the id of the file it belongs to

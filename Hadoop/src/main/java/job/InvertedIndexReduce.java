@@ -2,8 +2,6 @@ package job;
 
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map.Entry;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
@@ -16,7 +14,6 @@ public class InvertedIndexReduce extends
     @Override
     public void reduce(Text word, Iterable<Text> values, Context context) throws IOException, InterruptedException
     {
-        
         String filename = "";
         String output = "[";
         

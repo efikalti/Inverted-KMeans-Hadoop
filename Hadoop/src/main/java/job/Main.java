@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.filecache.DistributedCache;
 import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.FileUtil;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
@@ -30,6 +31,7 @@ public class Main {
                 // Paths of input and output directory
                 Path input = new Path(args[0]);    //input path
                 Path output = new Path(args[1]);    //output path
+                Path output_temp = new Path(args[1]+"_temp");    //output path
                 
                 // Create configuration
                 Configuration conf = new Configuration(true);
@@ -40,6 +42,9 @@ public class Main {
 
                 // Delete output if it exists to avoid error
                 if (hdfs.exists(output)) {
+                    hdfs.delete(output, true);
+                }
+                if (hdfs.exists(output_temp)) {
                     hdfs.delete(output, true);
                 }
                 
@@ -58,11 +63,13 @@ public class Main {
                 FileInputFormat.addInputPath(InvertedIndex, input);
                 InvertedIndex.setInputFormatClass(TextInputFormat.class);
                 // Set output path
-                FileOutputFormat.setOutputPath(InvertedIndex, output);
+                FileOutputFormat.setOutputPath(InvertedIndex, output_temp);
                 InvertedIndex.setOutputFormatClass(TextOutputFormat.class);
 
                 //Execute InvertedIndex 
                 int code = InvertedIndex.waitForCompletion(true) ? 0 : 1;
+                
+                FileUtil.copyMerge(hdfs, output_temp, hdfs, output, true, conf, "");
             }
             
 	}
