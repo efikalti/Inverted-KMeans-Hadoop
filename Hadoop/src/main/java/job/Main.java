@@ -1,3 +1,5 @@
+package job;
+
 
 import java.io.IOException;
 import java.net.URI;
@@ -22,7 +24,7 @@ public class Main {
 	public static void main(String[] args) throws URISyntaxException, IOException, InterruptedException, ClassNotFoundException
 	{
             if (args.length < 2) {
-                System.out.println("Proper use: Main <Input path> <Output path>");
+                System.out.println("Proper use: job.Main <Input path> <Output path>");
             } else {
                 
                 // Paths of input and output directory
